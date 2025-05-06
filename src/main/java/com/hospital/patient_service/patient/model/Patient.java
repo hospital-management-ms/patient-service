@@ -2,6 +2,7 @@ package com.hospital.patient_service.patient.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.sql.Date;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Patient {
 
     @Id
