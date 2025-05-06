@@ -1,0 +1,26 @@
+package com.hospital.patient_service.patient.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NonNull;
+
+import java.sql.Date;
+import java.util.UUID;
+
+@Entity
+@Data
+public class Patient {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NonNull
+    private UUID id;
+    @NonNull
+    @Column(unique = true)
+    private String name;
+    private String email;
+    private String address;
+    private Date  dateOfBirth;
+    private Date registeredDate;
+
+}
