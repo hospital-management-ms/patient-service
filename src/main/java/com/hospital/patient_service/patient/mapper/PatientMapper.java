@@ -1,7 +1,11 @@
 package com.hospital.patient_service.patient.mapper;
 
 import com.hospital.patient_service.patient.dto.PatientDTO;
+import com.hospital.patient_service.patient.dto.PatientRequestDto;
 import com.hospital.patient_service.patient.model.Patient;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class PatientMapper {
 
@@ -15,5 +19,17 @@ public class PatientMapper {
         patientDTO.setDateOfBirth(patient.getDateOfBirth().toString());
 
         return patientDTO;
+    }
+
+    public static Patient toModel(PatientRequestDto patientRequestDto){
+
+        Patient patient = new Patient();
+        patient.setName(patientRequestDto.getName());
+        patient.setEmail(patientRequestDto.getEmail());
+        patient.setAddress(patientRequestDto.getAddress());
+        patient.setDateOfBirth(Date.valueOf(LocalDate.parse(patientRequestDto.getDateOfBirth())));
+        patient.setRegisteredDate(Date.valueOf(LocalDate.parse(patientRequestDto.getRegisteredDate())));
+
+        return patient;
     }
 }
