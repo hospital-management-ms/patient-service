@@ -18,7 +18,6 @@ public class Patient {
     @NonNull
     private UUID id;
     @NonNull
-    @Column(unique = true)
     private String name;
     @Column(unique = true)
     private String email;
