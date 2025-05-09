@@ -5,9 +5,13 @@ import com.hospital.patient_service.patient.dto.PatientRequestDto;
 import com.hospital.patient_service.patient.mapper.PatientMapper;
 import com.hospital.patient_service.patient.model.Patient;
 import com.hospital.patient_service.patient.repository.PatientRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PatientService {
@@ -28,5 +32,16 @@ public class PatientService {
           Patient result = patientRepository.save(PatientMapper.toModel(patientRequestDto));
           return PatientMapper.toDTO(result);
       }
+
+    public boolean removePatientByID(UUID patientId) throws SQLException {
+
+        Optional<Patient> patient = patientRepository.findById(patientId);
+        if (patient.isEmpty()) {
+            throw new SQLException("patient id not found");
+        }
+        patientRepository.delete(patient.get());
+        return true;
+    }
+
 
 }
