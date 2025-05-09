@@ -5,6 +5,7 @@ import com.hospital.patient_service.patient.dto.PatientRequestDto;
 import com.hospital.patient_service.patient.mapper.PatientMapper;
 import com.hospital.patient_service.patient.model.Patient;
 import com.hospital.patient_service.patient.repository.PatientRepository;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -33,14 +34,12 @@ public class PatientService {
           return PatientMapper.toDTO(result);
       }
 
-    public boolean removePatientByID(UUID patientId) throws SQLException {
+    public boolean removePatientByID(UUID patientId) {
 
-        Optional<Patient> patient = patientRepository.findById(patientId);
-        if (patient.isEmpty()) {
-            throw new SQLException("patient id not found");
-        }
-        patientRepository.delete(patient.get());
-        return true;
+         Patient patient = patientRepository.findById(patientId).orElseThrow(() ->
+                 new RuntimeException("Patient not found with ID: " + patientId));
+         patientRepository.delete(patient);
+         return true;
     }
 
 

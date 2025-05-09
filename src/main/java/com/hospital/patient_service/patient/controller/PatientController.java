@@ -35,7 +35,7 @@ public class PatientController {
         return ResponseEntity.ok().body(patientService.insertPatient(patientRequestDto));
     }
     @DeleteMapping( "{id}")
-    public ResponseEntity<String> deletePatient(@PathVariable UUID id ) throws SQLException {
+    public ResponseEntity<String> deletePatient(@PathVariable UUID id ) {
 
         if(patientService.removePatientByID(id)){
             return ResponseEntity.ok("Patient removed successfully");
