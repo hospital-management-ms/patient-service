@@ -9,5 +9,6 @@ public class PatientDTO {
     private String email;
     private String address;
     private String dateOfBirth;
-
+    private boolean isDischarge;
+    private String dischargeDate;
 }

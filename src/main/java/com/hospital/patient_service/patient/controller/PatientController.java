@@ -2,14 +2,17 @@ package com.hospital.patient_service.patient.controller;
 
 import com.hospital.patient_service.patient.dto.PatientDTO;
 import com.hospital.patient_service.patient.dto.PatientRequestDto;
-import com.hospital.patient_service.patient.model.Patient;
-import com.hospital.patient_service.patient.repository.PatientRepository;
 import com.hospital.patient_service.patient.service.PatientService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,5 +44,14 @@ public class PatientController {
             return ResponseEntity.ok("Patient removed successfully");
         }
         return ResponseEntity.internalServerError().body("Something went wrong");
+    }
+
+    @PostMapping("{id}")
+    public ResponseEntity<String> setDischargeStatus(@PathVariable UUID id) throws SQLException {
+
+     if(patientService.dischargePatientByID(id)){
+         return ResponseEntity.ok("Patient discharged on:"+ LocalDateTime.now());
+     }
+        throw new ResponseStatusException(HttpStatus.CONFLICT, "Patient already discharged");
     }
 }

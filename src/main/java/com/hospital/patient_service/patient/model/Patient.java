@@ -24,5 +24,6 @@ public class Patient {
     private String address;
     private Date  dateOfBirth;
     private Date registeredDate;
-
+    private boolean isDischarge;
+    private Date dischargeDate;
 }
