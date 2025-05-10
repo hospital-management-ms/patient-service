@@ -8,7 +8,9 @@ import com.hospital.patient_service.patient.repository.PatientRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +19,7 @@ import java.util.UUID;
 public class PatientService {
 
       private final PatientRepository patientRepository;
+
 
       public PatientService(PatientRepository patientRepository){
           this.patientRepository=patientRepository;
@@ -43,5 +46,22 @@ public class PatientService {
         return true;
     }
 
+    public boolean dischargePatientByID(UUID patientId) throws SQLException {
 
+        Optional<Patient> patient = patientRepository.findById(patientId);
+        if (patient.isEmpty()) {
+            throw new SQLException("patient id not found");
+        }
+
+        if(patient.get().isDischarge()){
+            return false;
+        }
+         Patient nonNullPatient = patient.get();
+        nonNullPatient.setDischarge(true);
+        nonNullPatient.setDischargeDate(Date.valueOf(LocalDate.now()));
+         patientRepository.save(nonNullPatient);
+
+
+        return true;
+    }
 }
