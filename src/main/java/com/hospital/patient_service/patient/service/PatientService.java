@@ -9,6 +9,7 @@ import org.springframework.boot.context.config.ConfigDataResourceNotFoundExcepti
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -43,4 +44,16 @@ public class PatientService {
     }
 
 
+    public PatientDTO updatePatient(PatientDTO patientDTO) {
+
+        Patient patient = patientRepository.findById(UUID.fromString(patientDTO.getId()))
+                .orElseThrow(() ->
+                new RuntimeException("Patient not found with ID: " + patientDTO.getId()));
+        patient.setName(patientDTO.getName());
+        patient.setAddress(patientDTO.getAddress());
+        patient.setEmail(patientDTO.getEmail());
+        patient.setDateOfBirth(Date.valueOf(patientDTO.getDateOfBirth()));
+
+        return PatientMapper.toDTO(patientRepository.save(patient));
+    }
 }

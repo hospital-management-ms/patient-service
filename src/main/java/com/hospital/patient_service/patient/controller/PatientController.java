@@ -34,6 +34,8 @@ public class PatientController {
 
         return ResponseEntity.ok().body(patientService.insertPatient(patientRequestDto));
     }
+
+
     @DeleteMapping( "{id}")
     public ResponseEntity<String> deletePatient(@PathVariable UUID id ) {
 
@@ -41,5 +43,10 @@ public class PatientController {
             return ResponseEntity.ok("Patient removed successfully");
         }
         return ResponseEntity.internalServerError().body("Something went wrong");
+    }
+
+    public ResponseEntity<PatientDTO> updatePatient(@RequestBody PatientDTO patientDTO){
+
+        return ResponseEntity.ok().body(patientService.updatePatient(patientDTO));
     }
 }

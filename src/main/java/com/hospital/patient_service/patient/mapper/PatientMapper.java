@@ -32,4 +32,15 @@ public class PatientMapper {
 
         return patient;
     }
+
+    public static Patient toModel(PatientDTO patientDto){
+
+        Patient patient = new Patient();
+        patient.setName(patientDto.getName());
+        patient.setEmail(patientDto.getEmail());
+        patient.setAddress(patientDto.getAddress());
+        patient.setDateOfBirth(Date.valueOf(LocalDate.parse(patientDto.getDateOfBirth())));
+
+        return patient;
+    }
 }
