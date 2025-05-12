@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class PatientService {
@@ -55,5 +56,9 @@ public class PatientService {
         patient.setDateOfBirth(Date.valueOf(patientDTO.getDateOfBirth()));
 
         return PatientMapper.toDTO(patientRepository.save(patient));
+    }
+
+    public void checkComplete(){
+        CompletableFuture<String> = CompletableFuture.delayedExecutor();
     }
 }
